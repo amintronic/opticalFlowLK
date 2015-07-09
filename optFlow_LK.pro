@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         optflow.cpp \
     capture_webcam.cpp \
-    plot_opencv.cpp
+    plot_opencv.cpp \
+    quad_board.cpp
 
 HEADERS  += optflow.h \
     capture_webcam.h \
-    plot_opencv.h
+    plot_opencv.h \
+    quad_board.h
 
 FORMS    += optflow.ui
 

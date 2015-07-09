@@ -6,6 +6,12 @@
 #include <QTimer>
 #include <opencv2/opencv.hpp>
 
+#define _DEV_VIDEO              1
+#define _VIDEO_FPS              60
+
+#define _FRAME_WIDTH            320
+#define _FRAME_HEIGTH           240
+
 using namespace cv;
 using namespace std;
 
@@ -15,7 +21,7 @@ class capture_webcam : public QObject
 public:
     explicit capture_webcam(QObject *parent = 0);
     ~capture_webcam();
-    Mat frame, frame_scaled, grayframe1, grayframe2;
+    Mat frame, first_frame, second_frame;
     bool first_image_ready, second_image_ready, first_image_permission;
     VideoCapture cap;
     double scale;

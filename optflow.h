@@ -7,6 +7,16 @@
 #include "plot_opencv.h"
 #include "capture_webcam.h"
 
+//#define _GRAPH
+
+#define _DATA_SCALE             100
+
+#define MAX_COUNT               100
+#define THRESH_REFRESH          50
+
+#define winSize                 Size(31,31)
+#define subPixWinSize           Size(10,10)
+
 using namespace cv;
 using namespace std;
 
@@ -21,56 +31,26 @@ class OptFlow : public QMainWindow
 public:
     explicit OptFlow(QWidget *parent = 0);
     ~OptFlow();
+
     Mat colorframe, grayframe;
     QTimer *main_timer;
     capture_webcam *cap;
-    bool done;
+
 
     Mat prevGray, image;
     vector<Point2f> points[2];
     TermCriteria termcrit;
-    Size subPixWinSize, winSize;
-    int MAX_COUNT, THRESH_REFRESH;
-    bool needToInit;
-    bool nightMode;
-    Point2f point;
-    bool addRemovePt;
-
-    QSerialPort *serial_port;
-//    QByteArray coordinate_packet;
-
     Plot_opencv plot1;
     std::vector<double> plot_datas;
+    Point2f point;
+
+
+    bool needToInit;
+    bool done;
+
+    size_t Features_counter;//count Features state true
+
     double delta_x, delta_y;
-
-    union _ch2int
-    {
-        int16_t real;
-        char byte[2];
-    };
-    typedef union _ch2int  ch2int;
-    typedef struct {
-
-        int data_recieved[32];
-        char decode_stage;
-        char sum;
-        char received_packet_length;
-        char ready;
-        ch2int conv;
-        int integer_received_counter;
-        int data_num;
-        QByteArray data_send;
-        uchar Num;
-        uchar check_Sum;
-    }_MPC;
-    _MPC MPC;
-
-    QByteArray serialPacketData;
-
-    void MPC_decode(uchar data);
-    void MPC_Empty_Data();
-    void MPC_Fill_Data(uchar num , ... );
-    void MPC_Send_Data();
 
     void OptFlow_LK();
 
